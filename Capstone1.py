@@ -103,35 +103,14 @@ def branch_transactions(state):
 def account_details(SSN):
     custmer.filter(custmer['SSN'] == SSN).show()
 
+#Req 2.2 3) Modify Account details
+# Code is directly in the menu if statements
+
 #Req 2.2 3) Used to generate a monthly bill for a credit card number for a given month and year.
 def monthly_bill(credit_card_no, month, year):
     bill = credit.filter((credit['credit_card_no']== credit_card_no) & (credit['month']== month) & (credit['year']==year )).toPandas()
     print(bill['TRANSACTION_VALUE'].sum())
 
-
-#Req 3.1) Find and plot which transaction type has a high rate of transactions.
-
-import numpy as np 
-import matplotlib.pyplot as plt
-
-#Make a list of all the unqiue transactions 
-list_of_transactions = credit.select('transaction_type').distinct().rdd.map(lambda r: r[0]).collect()
-
-#Find the total number of rows of dataframe 
-total_transactions = credit.count()
-
-#Find the percentage rate of each transaction type
-perc_education = (credit.filter(credit['transaction_type'] == 'Education').count()) / total_transactions
-perc_gas = (credit.filter(credit['transaction_type'] == 'Gas').count()) / total_transactions
-perc_entertainment = (credit.filter(credit['transaction_type'] == 'Entertainment').count()) / total_transactions
-perc_bills = (credit.filter(credit['transaction_type'] == 'Bills').count()) / total_transactions
-perc_grocery = (credit.filter(credit['transaction_type'] == 'Grocery').count()) / total_transactions
-perc_test = (credit.filter(credit['transaction_type'] == 'Test').count()) / total_transactions
-perc_healthcare = (credit.filter(credit['transaction_type'] == 'Healthcare').count()) / total_transactions
-
-rate_of_transactions = [perc_education, perc_entertainment, perc_healthcare, perc_grocery, perc_test, perc_gas, perc_bills]
-
-#plt.bar(list_of_transactions, rate_of_transactions).show()
 
 while True:
     #selection = pyip.inputMenu(['Total Transactions in zipcode', 'Banking Transactions', 'Visualization Menu'], numbered=True)
@@ -155,8 +134,8 @@ while True:
         print(transactions(year, month, zipcode))
 
     elif (selection == '2'):
-        type = input("Choose the transaction type:")
-        total_transactions(type)
+        types = input("Choose the transaction type:")
+        print(total_transactions(types))
 
     elif (selection == '3'):
         state = input("Choose a state:")
@@ -179,16 +158,24 @@ while True:
         print("3. Email")
         choice = input("Which of the above would you like to modify:")
         if choice == '1': 
-            new_CCN = input('Enter a new credit card number: ')
-            df = (updated_custmer.loc[updated_custmer['SSN'] == SSN])
-            df.loc[0].at['Credit_Card_no'] = new_CCN
+            new_CCN = input('Enter new credit card number:')
+            df = (custmer.filter(custmer['SSN'] == SSN).toPandas())
+            df.at[0, 'CREDIT_CARD_NO'] = new_CCN
+            print(df)
+        if choice == '2': 
+            new_phone = input('Enter new phone number:')
+            df = (custmer.filter(custmer['SSN'] == SSN).toPandas())
+            df.at[0, 'CUST_PHONE'] = new_phone
+            print(df)
+        if choice == '3':
+            email = input('Enter new email address:' )
+            df = (custmer.filter(custmer['SSN'] == SSN).toPandas())
+            df.at[0, 'CUST_EMAIL'] = email
+            print(df)
 
     elif(selection == '8'):
         break
         
-
-#elif(selection == '8'): 
-#    print(plt.bar(list_of_transactions, rate_of_transactions))
 
     
     
