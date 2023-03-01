@@ -32,7 +32,7 @@ branch_spark = spark.createDataFrame(updated_branch)
 #read credit json file
 credit = spark.read.load(r"C:\Users\Learner_XZHCG302\Downloads\cdw_sapp_credit.json", format="json", header = True,inferSchema = True)
 #create temp table to query credit dataframe
-#credit.createTempView("credit_table")
+credit.createTempView("credit_table")
 
 #combine year, month, and day with sql query and store into a new dataframe
 timeid = spark.sql("SELECT CONCAT(year, month, day) as TIMEID FROM credit_table")
@@ -103,7 +103,6 @@ def branch_transactions(state):
 def account_details(SSN):
     custmer.filter(custmer['SSN'] == SSN).show()
 
-account_details(123456100)
 #Req 2.2 3) Used to generate a monthly bill for a credit card number for a given month and year.
 def monthly_bill(credit_card_no, month, year):
     bill = credit.filter((credit['credit_card_no']== credit_card_no) & (credit['month']== month) & (credit['year']==year )).toPandas()
@@ -135,50 +134,58 @@ rate_of_transactions = [perc_education, perc_entertainment, perc_healthcare, per
 #plt.bar(list_of_transactions, rate_of_transactions).show()
 
 
-while True:
     #selection = pyip.inputMenu(['Total Transactions in zipcode', 'Banking Transactions', 'Visualization Menu'], numbered=True)
-    print("Please choose one of the following menu options")
-    print("1. Total Transactions in zipcode")
-    print("2. Total Transactions for transaction type and total cost of all transactions")
-    print("3. Total transcations and total value for all branches in a given state ")
-    print("4. Account details")
-    print("5. Credit card bill for the month")
-    print("6. Banking transcations")
-    print("7. Quit")
-    print("8. Plot of which transaction type has the highest rate of transaction")
+print("Please choose one of the following menu options")
+print("1. Total Transactions in zipcode")
+print("2. Total Transactions for transaction type and total cost of all transactions")
+print("3. Total transcations and total value for all branches in a given state ")
+print("4. Account details")
+print("5. Credit card bill for the month")
+print("6. Banking transcations")
+print("7. Quit")
+print("8. Modify account details")
     
-    selection = input("Enter Choice: ")
-    selection = selection.strip()
+selection = input("Enter Choice: ")
+selection = selection.strip()
 
-    if (selection == '1'):
-        year = input("Choose the year:")
-        month = input("Choose the month:")
-        zipcode = input("Choose zipcode:")
-        print(transactions(year, month, zipcode))
+if (selection == '1'):
+    year = input("Choose the year:")
+    month = input("Choose the month:")
+    zipcode = input("Choose zipcode:")
+    print(transactions(year, month, zipcode))
 
-    elif (selection == '2'):
-        type = input("Choose the transaction type:")
-        print(total_transactions(type))
+elif (selection == '2'):
+    type = input("Choose the transaction type:")
+    print(total_transactions(type))
 
-    elif (selection == '3'):
-        state = input("Choose a state:")
-        print(branch_transactions(state))
+elif (selection == '3'):
+    state = input("Choose a state:")
+    print(branch_transactions(state))
 
-    elif (selection == '4'): 
-        SSN = input("Enter your SSN:")
-        account_details(SSN)
-    
-    elif(selection == '5'):
-        credit_card_no = input("Enter your credit card number:")
-        month = input("Enter a month:")
-        year = input("Enter a year:")
-        monthly_bill(credit_card_no, month, year)
+elif (selection == '4'): 
+    SSN = input("Enter your SSN:")
+    account_details(SSN)
 
-    elif(selection == '7'):
-        break
+elif(selection == '5'):
+    credit_card_no = input("Enter your credit card number:")
+    month = input("Enter a month:")
+    year = input("Enter a year:")
+    monthly_bill(credit_card_no, month, year)
 
-    #elif(selection == '8'): 
-    #    print(plt.bar(list_of_transactions, rate_of_transactions))
+elif(selection == '8'):
+    SSN = input("Enter your SSN:")
+    print("1. Credit Card Number")
+    print("2. Phone number")
+    print("3. Email")
+    choice = input("Which of the above would you like to modify:")
+    if choice == '1': 
+        new_CCN = input('Enter a new credit card number: ')
+        df = (updated_custmer.loc[updated_custmer['SSN'] == SSN])
+        df.loc[0].at['Credit_Card_no'] = new_CCN
+        
+
+#elif(selection == '8'): 
+#    print(plt.bar(list_of_transactions, rate_of_transactions))
 
     
     
