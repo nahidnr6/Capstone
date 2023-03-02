@@ -175,13 +175,4 @@ while True:
 
     elif(selection == '8'):
         break
-        
-
     
-    
-    
-
-    
-
-    
-
