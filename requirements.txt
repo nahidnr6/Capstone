@@ -1,0 +1,9 @@
+pyspark
+findspark
+pandas
+numpy
+matplotlib
+pyinputplus
+requests
+mysql-connector-python
+mysql
