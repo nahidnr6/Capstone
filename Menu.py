@@ -8,7 +8,6 @@ spark = SparkSession\
     .appName("menu")\
     .getOrCreate()
 
-#Loading the CDW_SAPP_BRANCH table from mysql database into a Pyspark dataframe
 df_branch = spark.read \
     .format("jdbc") \
     .option("driver","com.mysql.cj.jdbc.Driver") \
@@ -18,7 +17,6 @@ df_branch = spark.read \
     .option("password", "password") \
     .load()
 
-#Loading the CDW_SAPP_CREDIT table from mysql database into a Pyspark dataframe
 df_credit = spark.read \
     .format("jdbc") \
     .option("driver","com.mysql.cj.jdbc.Driver") \
@@ -28,7 +26,6 @@ df_credit = spark.read \
     .option("password", "password") \
     .load()
 
-#Loading the CDW_SAPP_CUSTMER table from mysql database into a Pyspark dataframe
 df_custmer = spark.read \
     .format("jdbc") \
     .option("driver","com.mysql.cj.jdbc.Driver") \
@@ -59,21 +56,19 @@ while True:
         year = input("Choose the year:")
         month = input("Choose the month:")
         zipcode = input("Choose zipcode:")
-        #2.1
-        #Function to display the transactions made by customers living in a given zip code for a given month and year. Ordered in descending order.
+        #function that displays the transactions made by customers living in a given zip code for a given month and year, in descending order.
         def transactions(year, month, zipcode):
             df = df_credit.join(df_custmer, df_credit.CUST_SSN == df_custmer.SSN,  'outer')
-            df.filter( (df['year'] == year) & (df['month'] == month) & (df['CUST_ZIP'] == zipcode)).sort('day', ascending= False).show(10)
-        
-        print(transactions(year, month, zipcode))
+            df.filter( (df['year'] == year) & (df['month'] == month) & (df['CUST_ZIP'] == zipcode)).sort('day', ascending= False).show(10)        
+        transactions(year, month, zipcode)
+        print("...")
 
     elif (selection == '2'):
         print ("Gas\nEntertainment\nHealthcare\nGrocery\nTest\nEducation")
         types = input("Enter one of the following transaction types above: ") 
         print('...')
 
-        #2.1 2) Function used to display the number and total values of transactions for a given type.
-
+        #function that displays the number and total values of transactions for a given type.
         #Used credit pyspark dataframe and filtered based on transaction type. To get the total values, used the group by and sum method.
         from pyspark.sql.functions import sum
         def total_transactions(type):
@@ -81,41 +76,41 @@ while True:
             print(f'The number of {type} transactions is {transactions_of_type}')
             value_of_transaction_type = df_credit.filter(df_credit['transaction_type'] == type).groupBy().sum('transaction_value')
 
-            # Extract and format the value
+            #extracts and format the value
             total_value = value_of_transaction_type.collect()[0][0]
             formatted_total_value = round(total_value, 2)
+
             print(f"The value of these transactions is ${formatted_total_value}")
 
-        print(total_transactions(types))
+        total_transactions(types)
+        print("...")
 
     elif (selection == '3'):
         state = input("Enter a state(abbrevation):")
         print('...')
 
-        #Req 2.1 3) Used to display the total number and total values of transactions for branches in a given state.
-
+        #function that displays the total number and total values of transactions for branches in a given state.
         def branch_transactions(state):
             df2 = df_credit.join(df_branch, df_credit.BRANCH_CODE == df_branch.BRANCH_CODE, 'outer')
-            # Store the count of transactions in the specified state
+            # stores the count of transactions in the specified state
             transactions_in_state = df2.filter(df2['BRANCH_STATE'] == state).count()
-            # Print the total number of transactions
             print(f"The number of transactions in {state} is {transactions_in_state}") 
-            # Print the total value of all the transactions
             value_of_transactions = df2.filter(df2['BRANCH_STATE'] == state).groupBy().sum('transaction_value')
 
             # Extract and format the value
             total_value = value_of_transactions.collect()[0][0]
             formatted_total_value = round(total_value, 2)
 
-            # Print the value of the transactions rounded to two decimal places
+            #print the value of the transactions rounded to two decimal places
             print(f"The value of these transactions is ${formatted_total_value}")
 
-        print(branch_transactions(state))
+        branch_transactions(state)
+        print('...')
 
     elif (selection == '4'): 
         SSN = input("Enter your SSN:")
 
-        #Req 2.2 1) Function used to view the existing account details of a customer given SSN.
+        #function that views the existing account details of a customer given SSN.
         def account_details(SSN):
             df_custmer.filter(df_custmer['SSN'] == SSN).show()
         account_details(SSN)
@@ -125,7 +120,7 @@ while True:
         month = input("Enter a month:")
         year = input("Enter a year:")
 
-        #Req 2.2 3) Used to generate a monthly bill for a credit card number for a given month and year.
+        #function that generates a monthly bill for a credit card number for a given month and year.
         import calendar
         def monthly_bill(credit_card_no, month, year):
             month = int(month)
