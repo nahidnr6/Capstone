@@ -8,11 +8,11 @@ Challenges:
 
 Process:
 
-The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The image above shows the workflow of the project and some of the tools used. I created a Banking database, a console-based menu where users can retrieve information, and a data analysis/visualization section.
+The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The picture above shows the workflow of the project. I created a Banking database, a console-based menu where users can retrieve information, and a data analysis/visualization section. I split it into two files: ETL_process.ipynp for the ETL process and data analysis/visualization part and Menu.py for creating the menu where users can retrieve information.
 
-ETL and Data Analysis:
+ETL and Data Visualization:
 
-To start the project, I used a jupyter notebook file to perform the ETL process and data analysis. I extracted branch, customer, and credit (trasaction data) from 3 different JSON files, and used a GET request on an API to retrieve loan data and converted them into PySpark dataframes. I transformed the data to make it easier to work with before loading them into branch, customer, and credit tables in a MYSQL database. Prior to loading it into the database, I had to create the database which I named "creditcard_capstone". Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amout.
+To start, I used Pyspark to load 3 provided JSON files anad created 3 dataframes, and used a GET request on an API to retrieve loan data and converted them into PySpark dataframes. I transformed the data to make it easier to work with before loading them into branch, customer, and credit tables in a MYSQL database. Prior to loading it into the database, I had to create the database which I named "creditcard_capstone". Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amout.
 
 Menu:
 
