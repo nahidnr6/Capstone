@@ -15,6 +15,7 @@ ETL and Data Visualization:
 To start the project, I created a MySQL database and loaded branch, customer, and credit data into them which were provided as JSON files. Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amount. 
 
 Here are some of the visualizations I created: 
+
 ![image](https://github.com/nahidnr6/Capstone/assets/64870566/4fe5c562-839b-47be-a95c-5db113c52b8b)
 
 ![image](https://github.com/nahidnr6/Capstone/assets/64870566/32decd00-0c6c-481d-98d1-e7db290f8fc1)
