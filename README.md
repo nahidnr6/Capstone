@@ -12,11 +12,20 @@ The Capstone was the final project for my Per Scholas Data Engineering Bootcamp.
 
 ETL and Data Visualization:
 
-To start, I used Pyspark to load 3 provided JSON files anad created 3 dataframes, and used a GET request on an API to retrieve loan data and converted them into PySpark dataframes. I transformed the data to make it easier to work with before loading them into branch, customer, and credit tables in a MYSQL database. Prior to loading it into the database, I had to create the database which I named "creditcard_capstone". Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amout.
+To start the project, I created a MySQL database and loaded branch, customer, and credit data into them which were provided as JSON files. Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amount. 
+
+Here are some of the visualizations I created: 
+![image](https://github.com/nahidnr6/Capstone/assets/64870566/4fe5c562-839b-47be-a95c-5db113c52b8b)
+
+![image](https://github.com/nahidnr6/Capstone/assets/64870566/32decd00-0c6c-481d-98d1-e7db290f8fc1)
+
+![image](https://github.com/nahidnr6/Capstone/assets/64870566/a3da9da8-e58c-4e29-ae65-57221a783d8a)
+
+![image](https://github.com/nahidnr6/Capstone/assets/64870566/de181abd-dfec-45ec-9d16-d9b79846cd84)
 
 Menu:
 
-In the next part of the project, I was tasked to created a console-based application where users can retrieve transaction details and customer details through a menu. I created the Menu.py file. When the file is run, users are asked to select one of the following options:
+In the next part of the project, I was tasked to create a console-based application where users can retrieve transaction details and customer details through a menu. I created the Menu.py file. When the file is run, users are asked to select one of the following options:
 (1) List of Transactions in Zipcode in Month
 (2) Total Transactions and Value of Transaction Type
 (3) Total Transactions and Value in State
