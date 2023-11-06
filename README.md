@@ -1,9 +1,5 @@
 # Capstone
 
-Challenges:
-
-- One of the challenges I faced was creating the functions from the pyspark dataframe that was created. Because Pyspark and Pandas uses different syntax, some methods might work for one thing but not the other. I also utilitized SQL querys to alter the dataframes as well. The main way I resolved the challenge of figuring out logically what needed to be done to the dataframe, was by googling exactly how to do it in pandas/spark/sql and using that syntax. I used all sorts of methods such as filtering, mapping, loc, groupby, count, sum, sort, subqueries, round, joins, having statesments, etc. Using all of these really helped me sharpen my problem solving skills.
-
 ![Alt text](image.png)
 
 Process:
@@ -42,3 +38,6 @@ Challenges:
 
 One of the technical challenges I faced in developing this project was loading the data into the database. I was stuck with "Py4JJavaError: An error occurred while calling o46.save.
 : java.sql.SQLException: No suitable driver" error no matte what I did. Even after downloading the mysql connector driver and placing it in the jar folder in pyspark where it can accessed, I was still having this issue. I was finally able to write the data by including ".option("driver", 'com.mysql.jdbc.Driver')" into my coding in writing the data.
+
+Another one of the challenges I faced was creating the functions from the pyspark dataframe that was created. Because Pyspark and Pandas uses different syntax, some methods might work for one thing but not the other. I also utilitized SQL querys to alter the dataframes as well. The main way I resolved the challenge of figuring out logically what needed to be done to the dataframe, was by googling exactly how to do it in pandas/spark/sql and using that syntax. I used all sorts of methods such as filtering, mapping, loc, groupby, count, sum, sort, subqueries, round, joins, having statesments, etc. Using all of these really helped me sharpen my problem solving skills.
+
