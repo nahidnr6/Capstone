@@ -1,10 +1,10 @@
 # Capstone
 
-![Alt text](image.png)
-
 Process:
 
-The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The picture above shows the workflow of the project. I created a Banking database, a console-based menu where users can retrieve information, and a data analysis/visualization section. I split it into two files: ETL_process.ipynp for the ETL process and data analysis/visualization part and Menu.py for creating the menu where users can retrieve information.
+The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The picture above shows the workflow of the project. I created a Banking database, a console-based menu where users can retrieve information, and a data analysis/visualization section. I split it into two files: ETL_process.ipynp for the ETL process and data analysis/visualization part and Menu.py for creating the menu where users can retrieve information
+
+![Alt text](image.png)
 
 ETL and Data Visualization:
 
