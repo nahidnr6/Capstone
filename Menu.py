@@ -53,83 +53,69 @@ while True:
     selection = selection.strip()
 
     if (selection == '1'):
-        year = input("Choose the year:")
-        month = input("Choose the month:")
-        zipcode = input("Choose zipcode:")
-        #function that displays the transactions made by customers living in a given zip code for a given month and year, in descending order.
-        def transactions(year, month, zipcode):
-            df = df_credit.join(df_custmer, df_credit.CUST_SSN == df_custmer.SSN,  'outer')
-            df.filter( (df['year'] == year) & (df['month'] == month) & (df['CUST_ZIP'] == zipcode)).sort('day', ascending= False).show(10)        
-        transactions(year, month, zipcode)
-        print("...")
+        year = input("Choose the year: ")
+        month = input("Choose the month: ")
+        zipcode = input("Choose zipcode: ")
+
+        df_credit.createOrReplaceTempView("credit")
+        df_custmer.createOrReplaceTempView("customer")
+        spark.sql(f"SELECT BRANCH_CODE, credit.CREDIT_CARD_NO, CUST_SSN, DAY, MONTH, TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_VALUE, YEAR, customer.CUST_ZIP \
+                               FROM credit JOIN customer ON customer.SSN == credit.CUST_SSN \
+                               WHERE MONTH == {month} AND YEAR == {year} AND customer.CUST_ZIP == {zipcode}") \
+                                .show()
+
 
     elif (selection == '2'):
-        print ("Gas\nEntertainment\nHealthcare\nGrocery\nTest\nEducation")
-        types = input("Enter one of the following transaction types above: ") 
-        print('...')
 
-        #function that displays the number and total values of transactions for a given type.
-        #Used credit pyspark dataframe and filtered based on transaction type. To get the total values, used the group by and sum method.
-        from pyspark.sql.functions import sum
-        def total_transactions(type):
-            transactions_of_type = (df_credit.filter(df_credit['transaction_type'] == type).count())
-            print(f'The number of {type} transactions is {transactions_of_type}')
-            value_of_transaction_type = df_credit.filter(df_credit['transaction_type'] == type).groupBy().sum('transaction_value')
-
-            #extracts and format the value
-            total_value = value_of_transaction_type.collect()[0][0]
-            formatted_total_value = round(total_value, 2)
-
-            print(f"The value of these transactions is ${formatted_total_value}")
-
-        total_transactions(types)
-        print("...")
+        df_credit.createOrReplaceTempView("credit")
+        spark.sql("SELECT distinct transaction_type from credit").show()
+        type = input("Select one of the transaction types above: ")
+        print(f"The total number of {type} transactions is: ")
+        spark.sql(f"SELECT count(*) as Number \
+                    FROM credit \
+                    WHERE Transaction_Type == '{type}'").show()
+        
+        print(f"The total value of {type} transactions is: ")
+        spark.sql(f"Select round(sum(Transaction_Value),2) as Value \
+                    FROM credit \
+                    WHERE Transaction_Type == '{type}'").show()
 
     elif (selection == '3'):
-        state = input("Enter a state(abbrevation):")
-        print('...')
+       
+        df_branch.createOrReplaceTempView("branch")
+        df_credit.createOrReplaceTempView("credit")
 
-        #function that displays the total number and total values of transactions for branches in a given state.
-        def branch_transactions(state):
-            df2 = df_credit.join(df_branch, df_credit.BRANCH_CODE == df_branch.BRANCH_CODE, 'outer')
-            # stores the count of transactions in the specified state
-            transactions_in_state = df2.filter(df2['BRANCH_STATE'] == state).count()
-            print(f"The number of transactions in {state} is {transactions_in_state}") 
-            value_of_transactions = df2.filter(df2['BRANCH_STATE'] == state).groupBy().sum('transaction_value')
+        state = input("Enter a state (abbreviation): ")
 
-            # Extract and format the value
-            total_value = value_of_transactions.collect()[0][0]
-            formatted_total_value = round(total_value, 2)
+        print(f"The number of transactions in {state} is:")
+        spark.sql(f"SELECT count(TRANSACTION_ID) as Transactions \
+                  FROM branch \
+                  JOIN credit on branch.BRANCH_CODE == credit.BRANCH_CODE \
+                  WHERE branch_state == '{state}'").show()
 
-            #print the value of the transactions rounded to two decimal places
-            print(f"The value of these transactions is ${formatted_total_value}")
-
-        branch_transactions(state)
-        print('...')
+        print(f"The total value of transactions in {state} is:")
+        spark.sql(f"SELECT round(sum(Transaction_Value), 2) as Value \
+                  FROM branch \
+                  JOIN credit on branch.BRANCH_CODE == credit.BRANCH_CODE \
+                  WHERE branch_state == '{state}'").show()
 
     elif (selection == '4'): 
         SSN = input("Enter your SSN:")
+        df_custmer.createOrReplaceTempView('custmer')
+        spark.sql(f"SELECT * FROM custmer WHERE SSN == '{SSN}'").show()
 
-        #function that views the existing account details of a customer given SSN.
-        def account_details(SSN):
-            df_custmer.filter(df_custmer['SSN'] == SSN).show()
-        account_details(SSN)
+    elif (selection == '5'):
+        
+        number = input("Enter your credit card number? 16 digits. No spaces, no dashes please: ")
+        month = input("Enter a month(number): ")
+        year = input("Enter a year: ")
+        df_credit = df_credit.filter(df_credit.CREDIT_CARD_NO == number)
+        df_credit = df_credit.filter(df_credit.MONTH == month)
+        df_credit = df_credit.filter(df_credit.YEAR == year)
+        df_credit.createOrReplaceTempView("credit")
+        spark.sql("SELECT * from credit ORDER BY DAY").show()
+        spark.sql("SELECT sum(TRANSACTION_VALUE) as BALANCE from credit").show()
 
-    elif(selection == '5'):
-        credit_card_no = input("Enter your credit card number:")
-        month = input("Enter a month:")
-        year = input("Enter a year:")
-
-        #function that generates a monthly bill for a credit card number for a given month and year.
-        import calendar
-        def monthly_bill(credit_card_no, month, year):
-            month = int(month)
-            bill = df_credit.filter((df_credit['credit_card_no']== credit_card_no) & (df_credit['month']== month) & (df_credit['year']==year )).toPandas()
-            bill_sum = round(bill['TRANSACTION_VALUE'].sum(), 2)
-            month_name = calendar.month_name[month]
-            print(f"The monthly bill for {month_name} is ${bill_sum}")
-
-        monthly_bill(credit_card_no, month, year)
 
     elif(selection == '7'):
         SSN = input("Enter your SSN:")
@@ -156,7 +142,7 @@ while True:
     elif(selection == '8'):
         print("Goodbye!")
         break
-    
+
     else: 
         print("Please enter a valid selection (1, 2, 3, 4, 5, 6, 7, or 8).")
         print("...")
