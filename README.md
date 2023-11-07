@@ -1,8 +1,8 @@
 # Capstone
 
-Challenges:
+Process:
 
-- One of the challenges I faced was creating the functions from the pyspark dataframe that was created. Because Pyspark and Pandas uses different syntax, some methods might work for one thing but not the other. I also utilitized SQL querys to alter the dataframes as well. The main way I resolved the challenge of figuring out logically what needed to be done to the dataframe, was by googling exactly how to do it in pandas/spark/sql and using that syntax. I used all sorts of methods such as filtering, mapping, loc, groupby, count, sum, sort, subqueries, round, joins, having statesments, etc. Using all of these really helped me sharpen my problem solving skills.
+The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The picture below shows the workflow of the project. I created a Banking database, a console-based menu where users can retrieve information, and a data analysis/visualization section. I split it into two files: ETL_process.ipynp for the ETL process and data analysis/visualization part and Menu.py for creating the menu where users can retrieve information.
 
 ![Alt text](image.png)
 
@@ -23,6 +23,7 @@ Here are some of the visualizations I created:
 Menu:
 
 In the next part of the project, I was tasked to create a console-based application where users can retrieve transaction details and customer details through a menu. I created the Menu.py file. When the file is run, users are asked to select one of the following options:
+
 (1) List of Transactions in Zipcode in Month
 (2) Total Transactions and Value of Transaction Type
 (3) Total Transactions and Value in State
@@ -38,5 +39,3 @@ Challenges:
 
 One of the technical challenges I faced in developing this project was loading the data into the database. I was stuck with "Py4JJavaError: An error occurred while calling o46.save.
 : java.sql.SQLException: No suitable driver" error no matte what I did. Even after downloading the mysql connector driver and placing it in the jar folder in pyspark where it can accessed, I was still having this issue. I was finally able to write the data by including ".option("driver", 'com.mysql.jdbc.Driver')" into my coding in writing the data.
-
-Another one of the challenges I faced was creating the functions from the pyspark dataframe that was created. Because Pyspark and Pandas uses different syntax, some methods might work for one thing but not the other. I also utilitized SQL querys to alter the dataframes as well. The main way I resolved the challenge of figuring out logically what needed to be done to the dataframe, was by googling exactly how to do it in pandas/spark/sql and using that syntax. I used all sorts of methods such as filtering, mapping, loc, groupby, count, sum, sort, subqueries, round, joins, having statesments, etc. Using all of these really helped me sharpen my problem solving skills.
