@@ -1,16 +1,16 @@
 # Capstone
 
-Process:
+**Process:**
 
 The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The picture below shows the workflow of the project. I created a Banking database, a console-based banking application where users can retrieve information, and a data analysis/visualization section. I split it into three files: ETL_process.ipynp for the ETL process, Data_Analysis.ipynb for the data analysis/visualization part and Banking_App.py for developing tbe banking application and menu where users can query the data.
 
 ![Alt text](image.png)
 
-ETL Process:
+**ETL Process:**
 
 There were four datasets I had to extract: bank branch, credit card customer , credit card transaction , and loan application data. The first three were provided as JSON files, so I used Pyspark to read the data as dataframes. I extracted the last dataset, which was given as an API endpoint, by using a GET request and created a loan dataframe. After extracting the data, I had to perform several transformations. For the branch, customer, and credit data, we were given mapping documents that showed exactly what transformations needed to be done. For example, the format of the branch phone number needed to be changed from XXXXXXXXXX to (XXX)XXX-XXXX. Once all the transformations were done, I loaded the data into the database as branch, customer, credit, and loan tables using the PySpark DataFrameWriter API. Here is a link to this section of the project. Here is a link to the ETL process : [ETL](https://github.com/nahidnr6/Capstone/blob/main/ETL_process.ipynb)
 
-Data Analysis:
+**Data Analysis:**
 
 Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amount. Here is a link to the data analysis section : [Data Analysis](https://github.com/nahidnr6/Capstone/blob/main/Data_Analysis.ipynb)
 
@@ -24,7 +24,7 @@ Here are some of the visualizations I created:
 
 ![image](https://github.com/nahidnr6/Capstone/assets/64870566/de181abd-dfec-45ec-9d16-d9b79846cd84)
 
-Banking Application:
+**Banking Application:**
 
 In the next part of the project, I was tasked to create a console-based application where users can retrieve transaction details and customer details through a menu. I created the Banking_App.py file. When the file is run, users are asked to select one of the following options:
 
