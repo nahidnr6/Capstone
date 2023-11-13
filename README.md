@@ -12,7 +12,7 @@ There were four datasets I had to extract: bank branch, credit card customer , c
 
 Data Analysis:
 
-Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amount. Here is a link to the data analysis section : [Data_Analysis]https://github.com/nahidnr6/Capstone/blob/main/Data_Analysis.ipynb
+Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amount. Here is a link to the data analysis section : [Data Analysis](https://github.com/nahidnr6/Capstone/blob/main/Data_Analysis.ipynb)
 
 Here are some of the visualizations I created:
 
@@ -37,4 +37,4 @@ In the next part of the project, I was tasked to create a console-based applicat
 (7) Modify Account Details
 (8) Quit
 
-Depending on what the user inputs in the menu, a function would be called displaying the output. Here is a link to the banking application: [Bank_App]https://github.com/nahidnr6/Capstone/blob/main/Banking_App.py
+Depending on what the user inputs in the menu, a function would be called displaying the output. Here is a link to the banking application: [Bank App](https://github.com/nahidnr6/Capstone/blob/main/Banking_App.py)
