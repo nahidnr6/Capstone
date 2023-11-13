@@ -1,3 +1,5 @@
+#Part 3: Banking Application
+
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark import SparkContext
@@ -26,11 +28,11 @@ df_credit = spark.read \
     .option("password", "password") \
     .load()
 
-df_custmer = spark.read \
+df_customer = spark.read \
     .format("jdbc") \
     .option("driver","com.mysql.cj.jdbc.Driver") \
     .option("url", "jdbc:mysql://localhost:3306/creditcard_capstone") \
-    .option("dbtable", "CDW_SAPP_CUSTMER") \
+    .option("dbtable", "CDW_SAPP_customer") \
     .option("user", "root") \
     .option("password", "password") \
     .load()
@@ -58,7 +60,7 @@ while True:
         zipcode = input("Choose zipcode: ")
 
         df_credit.createOrReplaceTempView("credit")
-        df_custmer.createOrReplaceTempView("customer")
+        df_customer.createOrReplaceTempView("customer")
         spark.sql(f"SELECT BRANCH_CODE, credit.CREDIT_CARD_NO, CUST_SSN, DAY, MONTH, TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_VALUE, YEAR, customer.CUST_ZIP \
                                FROM credit JOIN customer ON customer.SSN == credit.CUST_SSN \
                                WHERE MONTH == {month} AND YEAR == {year} AND customer.CUST_ZIP == {zipcode}") \
@@ -101,8 +103,8 @@ while True:
 
     elif (selection == '4'): 
         SSN = input("Enter your SSN:")
-        df_custmer.createOrReplaceTempView('custmer')
-        spark.sql(f"SELECT * FROM custmer WHERE SSN == '{SSN}'").show()
+        df_customer.createOrReplaceTempView('customer')
+        spark.sql(f"SELECT * FROM customer WHERE SSN == '{SSN}'").show()
 
     elif (selection == '5'):
         
@@ -125,17 +127,17 @@ while True:
         choice = input("Which of the above would you like to modify:")
         if choice == '1': 
             new_CCN = input('Enter new credit card number:')
-            df = (df_custmer.filter(df_custmer['SSN'] == SSN).toPandas())
+            df = (df_customer.filter(df_customer['SSN'] == SSN).toPandas())
             df.at[0, 'CREDIT_CARD_NO'] = new_CCN
             print(df)
         if choice == '2': 
             new_phone = input('Enter new phone number:')
-            df = (df_custmer.filter(df_custmer['SSN'] == SSN).toPandas())
+            df = (df_customer.filter(df_customer['SSN'] == SSN).toPandas())
             df.at[0, 'CUST_PHONE'] = new_phone
             print(df)
         if choice == '3':
             email = input('Enter new email address:' )
-            df = (df_custmer.filter(df_custmer['SSN'] == SSN).toPandas())
+            df = (df_customer.filter(df_customer['SSN'] == SSN).toPandas())
             df.at[0, 'CUST_EMAIL'] = email
             print(df)
     
