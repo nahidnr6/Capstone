@@ -1,6 +1,6 @@
 # Capstone
 
-**Process:**
+### Process
 
 The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The picture below shows the workflow of the project. I created a Banking database, a console-based banking application where users can retrieve information, and a data analysis/visualization section. I split it into three files: ETL_process.ipynp for the ETL process, Data_Analysis.ipynb for the data analysis/visualization part and Banking_App.py for developing the banking application and menu where users can query the data.
 
