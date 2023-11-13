@@ -7,3 +7,4 @@ pyinputplus
 requests
 mysql-connector-python
 mysql
+json
