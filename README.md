@@ -2,7 +2,7 @@
 
 **Process:**
 
-The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The picture below shows the workflow of the project. I created a Banking database, a console-based banking application where users can retrieve information, and a data analysis/visualization section. I split it into three files: ETL_process.ipynp for the ETL process, Data_Analysis.ipynb for the data analysis/visualization part and Banking_App.py for developing tbe banking application and menu where users can query the data.
+The Capstone was the final project for my Per Scholas Data Engineering Bootcamp. The picture below shows the workflow of the project. I created a Banking database, a console-based banking application where users can retrieve information, and a data analysis/visualization section. I split it into three files: ETL_process.ipynp for the ETL process, Data_Analysis.ipynb for the data analysis/visualization part and Banking_App.py for developing the banking application and menu where users can query the data.
 
 ![Alt text](image.png)
 
@@ -12,7 +12,7 @@ There were four datasets I had to extract: bank branch, credit card customer , c
 
 **Data Analysis:**
 
-Once I had all the data in the database, I was ready to perform the data analysis section of the project. In the data analysis section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amount. Here is a link to the data analysis section : [Data Analysis](https://github.com/nahidnr6/Capstone/blob/main/Data_Analysis.ipynb)
+Once I had all the data in the database, I was ready to perform the data analysis section of the project. In this section, the task was to find and plot valuable information that can be used for Business Analysts. I found how often each transaction type was made and created a pie chart. I also found which states have the most customers, the sum of all transactions for each custoemr, and which customer has the highest transaction amount. Here is a link to the data analysis section : [Data Analysis](https://github.com/nahidnr6/Capstone/blob/main/Data_Analysis.ipynb)
 
 Here are some of the visualizations I created:
 
@@ -28,13 +28,13 @@ Here are some of the visualizations I created:
 
 In the next part of the project, I was tasked to create a console-based application where users can retrieve transaction details and customer details through a menu. I created the Banking_App.py file. When the file is run, users are asked to select one of the following options:
 
-(1) List of Transactions in Zipcode in Month
-(2) Total Transactions and Value of Transaction Type
-(3) Total Transactions and Value in State
-(4) Account Details
-(5) Credit Card Bill in Month
-(6) Banking Transactions
-(7) Modify Account Details
+(1) List of Transactions in Zipcode in Month  
+(2) Total Transactions and Value of Transaction Type  
+(3) Total Transactions and Value in State  
+(4) Account Details  
+(5) Credit Card Bill in Month  
+(6) Banking Transactions  
+(7) Modify Account Details  
 (8) Quit
 
-Depending on what the user inputs in the menu, a function would be called displaying the output. Here is a link to the banking application: [Bank App](https://github.com/nahidnr6/Capstone/blob/main/Banking_App.py)
+Depending on what the user inputs in the menu, a function would be called displaying the output. I created the functions by querying the data using SparkSQL Here is a link to the banking application: [Bank App](https://github.com/nahidnr6/Capstone/blob/main/Banking_App.py)
