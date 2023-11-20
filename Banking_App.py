@@ -55,16 +55,33 @@ while True:
     selection = selection.strip()
 
     if (selection == '1'):
-        year = input("Choose the year: ")
-        month = input("Choose the month: ")
-        zipcode = input("Choose zipcode: ")
 
-        df_credit.createOrReplaceTempView("credit")
-        df_customer.createOrReplaceTempView("customer")
-        spark.sql(f"SELECT BRANCH_CODE, credit.CREDIT_CARD_NO, CUST_SSN, DAY, MONTH, TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_VALUE, YEAR, customer.CUST_ZIP \
-                               FROM credit JOIN customer ON customer.SSN == credit.CUST_SSN \
-                               WHERE MONTH == {month} AND YEAR == {year} AND customer.CUST_ZIP == {zipcode}") \
-                                .show()
+        def list_transactions_by_zipcode_month(df_credit, df_customer):
+            try:
+                # Create temporary views for the DataFrames
+                df_credit.createOrReplaceTempView("credit")
+                df_customer.createOrReplaceTempView("customer")
+
+                # Get user input for month, year, and zipcode
+                month = int(input("Enter the month: "))
+                year = input("Enter the year: ")
+                zipcode = input("Enter the zipcode: ")
+
+                # Perform Spark SQL operation to list transactions
+                result_df = spark.sql(f"""
+                    SELECT BRANCH_CODE, credit.CREDIT_CARD_NO, CUST_SSN, DAY, MONTH, TRANSACTION_ID, TRANSACTION_TYPE, TRANSACTION_VALUE, YEAR, customer.CUST_ZIP
+                    FROM credit JOIN customer ON customer.SSN == credit.CUST_SSN
+                    WHERE MONTH == {month} AND YEAR == {year} AND customer.CUST_ZIP == {zipcode}
+                """)
+
+                # Show the result DataFrame
+                result_df.show()
+
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
+        # Example usage:
+        list_transactions_by_zipcode_month(df_credit, df_customer)
 
 
     elif (selection == '2'):
